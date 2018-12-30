@@ -1,0 +1,5 @@
+docker run -dit --name web ubuntu:16.04 sh -c 'read website; sleep 3; curl http://$website;'
+
+docker exec web bash -c "apt update; apt install -y curl;"
+
+docker attach web
