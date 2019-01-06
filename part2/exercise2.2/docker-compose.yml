@@ -1,0 +1,23 @@
+version: '3'
+
+services: 
+  frontend:
+    build:
+      context: .
+      dockerfile: FrontendDockerFile
+    ports:
+      - 5000:5000
+
+  backend:
+    build:
+      context: .
+      dockerfile: BackendDockerFile
+    ports:
+      - 8000:8000
+    environment:
+      - REDIS=host.docker.internal
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
