@@ -1,0 +1,34 @@
+version: '3'
+
+services: 
+  frontend:
+    build:
+      context: .
+      dockerfile: FrontendDockerFile
+    ports:
+      - 5000:5000
+
+  backend:
+    build:
+      context: .
+      dockerfile: BackendDockerFile
+    ports:
+      - 8000:8000
+    environment:
+      - REDIS=host.docker.internal
+      - DB_USERNAME=user
+      - DB_PASSWORD=myPassword
+      - DB_HOST=host.docker.internal
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=myPassword
