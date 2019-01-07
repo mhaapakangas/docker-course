@@ -15,6 +15,9 @@ services:
       - DB_USERNAME=user
       - DB_PASSWORD=myPassword
       - DB_HOST=host.docker.internal
+    depends_on:
+      - redis
+      - db
 
   nginx:
     image: nginx
@@ -22,6 +25,9 @@ services:
       - 80:80
     volumes:
       - "./nginx.conf:/etc/nginx/nginx.conf"
+    depends_on:
+      - backend
+      - frontend
 
   redis:
     image: redis
