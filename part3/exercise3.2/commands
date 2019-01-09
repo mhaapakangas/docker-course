@@ -1,0 +1,4 @@
+docker build -t yle .
+
+mkdir myVideos
+docker run -v myVideos:/videos yle https://areena.yle.fi/1-1575209 -o myvideo.mp4
