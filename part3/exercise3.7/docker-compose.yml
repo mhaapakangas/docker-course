@@ -1,0 +1,54 @@
+version: '3'
+
+services: 
+  frontend:
+    build:
+      context: .
+      dockerfile: FrontendDockerFile
+    image: 10.166.0.2:5000/frontend
+
+  backend:
+    build:
+      context: .
+      dockerfile: BackendDockerFile
+    image: 10.166.0.2:5000/backend
+    environment:
+      - REDIS=redis
+      - DB_USERNAME=user
+      - DB_PASSWORD=myPassword
+      - DB_HOST=db
+    depends_on:
+      - db
+      - redis
+
+  nginx:
+    build:
+      context: .
+      dockerfile: NginxDockerFile    
+    image: 10.166.0.2:5000/nginx
+    ports:
+      - 80:80
+    depends_on:
+      - frontend
+      - backend
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-data:/data
+
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=myPassword
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  redis-data:
+  db-data:

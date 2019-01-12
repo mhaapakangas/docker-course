@@ -1,0 +1,18 @@
+FROM node:alpine 
+
+WORKDIR /myDir
+RUN apk update && apk upgrade \
+  && apk add --no-cache git \
+  && git clone https://github.com/docker-hy/backend-example-docker.git \ 
+  && cd backend-example-docker \
+  && npm install \
+  && apk del git \
+  && adduser -D app \
+  && chown -R app .
+
+USER app
+
+WORKDIR /myDir/backend-example-docker
+EXPOSE 8000
+
+CMD ["/usr/local/bin/npm", "start"]
