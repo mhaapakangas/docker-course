@@ -1,6 +1,6 @@
 ## Example setup using Docker Swarm
 
-I deployed the frontend - backend example in Docker Swarm hosted on Google Cloud. The swarm is composed of three Virtual Machines, one manager and two workers. The application is accessible at `http://35.228.173.193/`. 
+I deployed the frontend - backend example in Docker Swarm hosted on Google Cloud. The swarm is composed of three Ubuntu 16.04 Virtual Machines: one manager and two workers. The application is accessible at `http://35.228.173.193/`. 
 
 The manager node was initialized and drained to avoid running containers on it:
 ```
